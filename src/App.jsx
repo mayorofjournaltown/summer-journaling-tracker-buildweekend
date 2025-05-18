@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(() => {
+    const saved = localStorage.getItem('summer-step');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  useEffect(() => {
+    localStorage.setItem('summer-step', step);
+  }, [step]);
+  
 
   useEffect(() => {
     let timeout;
